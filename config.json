@@ -3,6 +3,8 @@
     "en-es-dataset-english": "./Datasets/es-en/europarl-v7.es-en.en",
     "en-it-dataset-italian": "./Datasets/en-it/europarl-v7.it-en.it",
     "en-it-dataset-english": "./Datasets/en-it/europarl-v7.it-en.en",
-    "data_saved": 0,
-    "en-es-dataset-spanish_saved": "./Datasets/es-en/es-en.es"
+    "val_size": 0.1,
+    "test_size": 0.1,
+    "seq_len": 200,
+    "batch_size": 64
 }
