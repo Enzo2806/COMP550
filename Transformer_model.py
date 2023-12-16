@@ -1,6 +1,6 @@
+import math
 import torch
 import torch.nn as nn
-import math
 
 """
 
@@ -76,7 +76,7 @@ class LayerNorm(nn.Module):
         
         # Create two learnable parameters: gamma and beta
         self.gamma = nn.Parameter(torch.ones(1))
-        self.beta = nn.Parameter(torch.zeros(0))
+        self.beta = nn.Parameter(torch.zeros(1))
 
     def forward(self, x):
         # Compute the standard deviation and mean of each item in the batch
@@ -84,7 +84,7 @@ class LayerNorm(nn.Module):
         std = x.std(-1, keepdim=True)
 
         # Normalize each item in the batch 
-        x = self.gamma * (x - mean) / (std + self.eps) + self.beta
+        return self.gamma * (x - mean) / (std + self.eps) + self.beta
 
 
 # Feed forward layer : a simple feed forward neural network with two linear transformations and a ReLU activation function
@@ -115,7 +115,6 @@ class FeedForward(nn.Module):
 # We then compute the scaled dot product attention for each head separately
 #   head_i = Attention(Q'W_i^Q, K'W_i^K, V'W_i^V) where W_i^Q, W_i^K, W_i^V are weight matrices of shape (d_model, d_model/h)
 # We then concatenate the h heads into a single matrix of shape (Batch, seq_len, d_model) and multiply it by a weight matrix to get the output of the multi-head attention
-
 class MutliHeadAttention(nn.Module):
     def __init__(self, d_model: int, h:int, dropout: float):
         super().__init__()
@@ -180,7 +179,7 @@ class MutliHeadAttention(nn.Module):
         # The softmax will then assign a probability of 0 to the masked words
         # The masked words will then have no effect on the other words
         if mask is not None:
-            attention_scores = attention_scores.masked_fill(mask == 0, -math.inf) 
+            attention_scores = attention_scores.masked_fill(mask == 0, -1e-8) 
  
         # Apply the softmax to get the attention probabilities
         # The attention probabilities have shape (Batch, h, seq_len, seq_len)
@@ -206,8 +205,9 @@ class AddNorm(nn.Module):
 
     def forward(self, x, sublayer):
         # return the x and the ouput of the sublayer (e.g. multi-head attention or feed forward)
-        # We first apply the sublayer to the input x, normalize and then add the result to the input x (residual connection) 
-        return x + self.dropout(self.layer_norm(sublayer(x)))
+        # We first apply the normalization to the input x, and then apply the sublayer before adding the result to the input x (residual connection) 
+        # Note this is different from the paper where the normalization is applied after the residual connection
+        return x + self.dropout(sublayer(self.layer_norm(x)))
     
 
 # Encoder layer: 
@@ -293,10 +293,10 @@ class Decoder(nn.Module):
 # We map the output of the decoder to the size of the target vocabulary
 class LinearLayer(nn.Module):
     def __init__(self, d_model:int, vocab_size: int):
-        super.__init__()
+        super().__init__()
         self.proj = nn.Linear(d_model, vocab_size)
 
-    def fowrard(self, x):
+    def forward(self, x):
         # The input has shape (Batch, seq_len, d_model)
         # The output has shape (Batch, seq_len, vocab_size)
         # We apply the softmax to the last dimension to get a probability distribution over the target vocabulary
@@ -330,6 +330,10 @@ class Transformer(nn.Module):
         x = self.trg_position(self.trg_embedding(trg))
         # Pass the encoded target sentence through the decoder
         return self.decoder(x, encoder_output, src_mask, trg_mask)
+
+    def output(self, x):
+        # Apply the linear layer to the output of the decoder
+        return self.linear_layer(x)
     
 # Create the transformer
 def build_transformer(src_vocab_size: int, trg_vocab_size: int, src_seq_len: int, trg_seq_len: int, d_model: int = 512, N: int = 6, h: int = 8, dropout: float = 0.1, d_ff = 2048) -> Transformer:

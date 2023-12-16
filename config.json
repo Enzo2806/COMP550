@@ -1,10 +1,1 @@
-{
-    "en-es-dataset-spanish": "./Datasets/es-en/europarl-v7.es-en.es",
-    "en-es-dataset-english": "./Datasets/es-en/europarl-v7.es-en.en",
-    "en-it-dataset-italian": "./Datasets/en-it/europarl-v7.it-en.it",
-    "en-it-dataset-english": "./Datasets/en-it/europarl-v7.it-en.en",
-    "val_size": 0.1,
-    "test_size": 0.1,
-    "seq_len": 200,
-    "batch_size": 64
-}
+{"en-es-dataset-spanish": "./Datasets/en-es/europarl-v7.es-en.es", "en-es-dataset-english": "./Datasets/en-es/europarl-v7.es-en.en", "en-it-dataset-italian": "./Datasets/en-it/europarl-v7.it-en.it", "en-it-dataset-english": "./Datasets/en-it/europarl-v7.it-en.en", "en-it-save-path": "./Datasets/en-it/", "en-es-save-path": "./Datasets/en-es/", "val_size": 0.1, "test_size": 0.1, "max_seq": 0, "batch_size": 64, "en_it_source_max_seq_len": 776, "en_it_target_max_seq_len": 651, "en_es_source_max_seq_len": 776, "en_es_target_max_seq_len": 757, "max_seq_len": 400}
