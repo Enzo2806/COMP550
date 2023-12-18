@@ -5,3 +5,12 @@ Datasets/en-it/europarl-v7.it-en.en
 Datasets/en-it/europarl-v7.it-en.it
 CopyPreprocessing.ipynb
 *.pt
+checkpoints/lr_0.0001/epoch_3_BLEU_0.0017035831787580768_train_loss_3.76_val_loss_3.67.pth
+checkpoints/lr_0.0001/epoch_2_BLEU_0.0029733939055755303_train_loss_4.13_val_loss_3.98.pth
+checkpoints/lr_0.0001/epoch_1_BLEU_0.07173863523261874_train_loss_4.98_val_loss_4.39.pth
+checkpoints/lr_0.0001/epoch_0_BLEU_0.010723132790029438_train_loss_5.34_val_loss_5.07.pth
+checkpoints/50000_dataset_lr_0.0001/epoch_4_BLEU_0.062078724794866744_train_loss_2.13_val_loss_1.97.pth
+checkpoints/50000_dataset_lr_0.0001/epoch_3_BLEU_0.19813882691239795_train_loss_2.01_val_loss_2.31.pth
+checkpoints/50000_dataset_lr_0.0001/epoch_2_BLEU_0.1924031370811976_train_loss_2.99_val_loss_2.79.pth
+checkpoints/50000_dataset_lr_0.0001/epoch_1_BLEU_0.05434116111194909_train_loss_4.0_val_loss_3.53.pth
+checkpoints/50000_dataset_lr_0.0001/epoch_0_BLEU_0.0802677696685591_train_loss_4.67_val_loss_4.46.pth

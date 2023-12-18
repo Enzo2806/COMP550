@@ -3,10 +3,7 @@ import torch
 import torch.nn as nn
 
 """
-
  This is the Transformer code explained in the original Transformer paper (https://arxiv.org/abs/1706.03762) by Vaswani et al.
-
- 
  """
 
 # Input embeddings : convert input sentence to vectors of size d_model. 
@@ -320,7 +317,7 @@ class Transformer(nn.Module):
         self.linear_layer = linear_layer
     
     def encode(self, src, src_mask):
-        # Embed the source sentence and add the positional encoding
+        # Embed the source sentence and add the positional encoding 
         x = self.src_position(self.src_embedding(src))
         # Pass the encoded source sentence through the encoder
         return self.encoder(x, src_mask)

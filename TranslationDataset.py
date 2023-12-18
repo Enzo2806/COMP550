@@ -1,9 +1,8 @@
 import torch
 import torch.nn as nn
-from torch.utils.data import Dataset, DataLoader # for creating the dataloader
+from torch.utils.data import Dataset
 # for tokenizing the sentences
 import nltk 
-from nltk.tokenize import word_tokenize 
 nltk.download('punkt') 
 
 class TranslationDataset(Dataset):
