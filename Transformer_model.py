@@ -51,6 +51,7 @@ class PositionalEncoding(nn.Module):
 
         # Register the positional encoding matrix as a buffer (a buffer is a tensor that is not a model parameter). 
         # This is because we want that tensor to be saved along with the model when we save it.
+        # The 
         self.register_buffer('pe', pe)
 
     def forward(self, x):
