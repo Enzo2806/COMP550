@@ -84,7 +84,7 @@ class TranslationDataset(Dataset):
             "encoder_input": encoder_input, # size seq_len
             "decoder_input": decoder_input, # size seq_len
             "encoder_mask": (encoder_input != self.pad_token).unsqueeze(0).unsqueeze(0).int(), # (1,1, Seq_len) # DOnt want the padding tokens to participate in the self attention mechnaism
-            # Causal mask: each word can onlky look at previosu words and not future words and padding tokens as well. 
+            # Causal mask: each word can only look at previous words and not future words and padding tokens as well. 
             "decoder_mask": (decoder_input != self.pad_token).unsqueeze(0).unsqueeze(0).int() & self.causal_mask(decoder_input.size(0)), # (1,1, Seq_len) & (1, Seq_len, Seq_len)
             "label": label,
             "src": src,
